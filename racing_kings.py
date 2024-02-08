@@ -506,11 +506,25 @@ def main():
     game = ChessVar()
     while game.get_game_state() == 'UNFINISHED':
         if game.get_turn() == 'WHITE':
-            print('White to move.\n')
+            print('\nWhite to move.')
         else:
-            print('Black to move.\n')
+            print('\nBlack to move.')
         game.make_move(input('Enter start square of move: '), input('Enter end square of move: '))
     print(game.get_game_state())
+
+    def _new_game():
+        """After the conclusion of a game, prompts the user if they'd like to play another."""
+        new_game = ''
+
+        while new_game.lower() != 'y' and new_game.lower() != 'n':
+            new_game = input('Would you like to play another game? (y/n) ')
+
+        if new_game.lower() == 'y':
+            main()
+        else:
+            print('Thanks for playing!')
+
+    _new_game()
 
 
 if __name__ == "__main__":
