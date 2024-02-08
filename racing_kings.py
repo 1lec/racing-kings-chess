@@ -337,6 +337,11 @@ class ChessVar:
 
         return self._board
 
+    def get_turn(self):
+        """Returns the player to move: 'WHITE' or 'BLACK'."""
+
+        return self._turn
+
     def set_game_state(self, game_state):
         """Takes as an argument a game state and updates the state of the current game to it."""
 
@@ -495,3 +500,18 @@ class ChessVar:
             self.update_game_state()
             self.print_board()
             return True
+
+
+def main():
+    game = ChessVar()
+    while game.get_game_state() == 'UNFINISHED':
+        if game.get_turn() == 'WHITE':
+            print('White to move.\n')
+        else:
+            print('Black to move.\n')
+        game.make_move(input('Enter start square of move: '), input('Enter end square of move: '))
+    print(game.get_game_state())
+
+
+if __name__ == "__main__":
+    main()
