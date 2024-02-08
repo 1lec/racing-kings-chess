@@ -1,6 +1,6 @@
 class ChessPiece:
-    """Represents a chess piece, and serves as a parent class for Bishop, Knight, Rook and King, all of which are
-    used to initialize the ChessVar class. Each ChessPiece object has a color, square and set of controlled squares."""
+    """Represents a chess piece, and serves as a parent class for Bishop, Knight, Rook and King, all of which are used
+    to initialize the RacingKings class. Each ChessPiece object has a color, square and set of controlled squares."""
 
     def __init__(self, color, square, controlled_squares):
         self._color = color    # can be either 'WHITE' or 'BLACK'
@@ -54,8 +54,8 @@ class ChessPiece:
 
 
 class Bishop(ChessPiece):
-    """Represents a bishop in a game of chess and used to create all Bishop objects when initializing ChessVar. Inherits
-     from ChessPiece."""
+    """Represents a bishop in a game of chess and used to create all Bishop objects when initializing RacingKings.
+    Inherits from ChessPiece."""
 
     def __repr__(self):
         """Overrides the representation of Bishop to the Unicode characters for bishops."""
@@ -143,8 +143,8 @@ class Bishop(ChessPiece):
 
 
 class Knight(ChessPiece):
-    """Represents a knight in a game of chess and used to create all Knight objects when initializing ChessVar. Inherits
-     from ChessPiece."""
+    """Represents a knight in a game of chess and used to create all Knight objects when initializing RacingKings.
+    Inherits from ChessPiece."""
 
     def __repr__(self):
         """Overrides the representation of Knight to the Unicode characters for knights."""
@@ -179,7 +179,7 @@ class Knight(ChessPiece):
 
 
 class Rook(ChessPiece):
-    """Represents a rook in a game of chess and used to create all Rook objects when initializing ChessVar. Inherits
+    """Represents a rook in a game of chess and used to create all Rook objects when initializing RacingKings. Inherits
      from ChessPiece."""
 
     def __repr__(self):
@@ -245,7 +245,7 @@ class Rook(ChessPiece):
 
 
 class King(ChessPiece):
-    """Represents a king in a game of chess and used to create all King objects when initializing ChessVar. Inherits
+    """Represents a king in a game of chess and used to create all King objects when initializing RacingKings. Inherits
      from ChessPiece."""
 
     def __repr__(self):
@@ -279,9 +279,9 @@ class King(ChessPiece):
                 self._controlled_squares.add(square)
 
 
-class ChessVar:
+class RacingKings:
     """Represents a chess variant in which the first king to reach the 8th rank wins the game, unless black reaches the
-    8th immediately following white. ChessVar has 6 private data members: game_state, turn, board, remaining_pieces,
+    8th immediately following white. RacingKings has 6 private data members: game_state, turn, board, remaining_pieces,
     white_king_position and black_king_position. The objects in board and remaining_pieces are created using the
     subclasses of ChessPiece. Upon initialization and after each move, a representation of the current board position
     is printed."""
@@ -503,7 +503,7 @@ class ChessVar:
 
 
 def main():
-    game = ChessVar()
+    game = RacingKings()
     while game.get_game_state() == 'UNFINISHED':
         if game.get_turn() == 'WHITE':
             print('\nWhite to move.')
