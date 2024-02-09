@@ -522,7 +522,9 @@ def main():
             print('\nWhite to move.')
         else:
             print('\nBlack to move.')
-        game.make_move(input('Enter start square of move: '), input('Enter end square of move: '))
+        legal = game.make_move(input('Enter start square of move: '), input('Enter end square of move: '))
+        if not legal:
+            print('\nIllegal move! Please make a different move.')
     print(game.get_game_state())
 
     def _new_game():
