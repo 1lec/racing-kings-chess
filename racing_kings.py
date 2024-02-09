@@ -287,6 +287,7 @@ class RacingKings:
     is printed."""
 
     def __init__(self):
+        self._theme = self.select_theme()
         self._game_state = 'UNFINISHED'
         self._turn = 'WHITE'
 
@@ -326,6 +327,16 @@ class RacingKings:
         self._white_king_position = 'a1'
         self._black_king_position = 'h1'
         self.print_board()  # Print the starting position.
+
+    def select_theme(self):
+        """Prompts the user for the theme of their terminal, dark or light, to ensure pieces display with the correct
+        colors."""
+
+        theme = ''
+        while theme.lower() != 'dark' and theme.lower() != 'light':
+            theme = input('Select your terminal theme: (dark/light)')
+
+        return theme
 
     def get_game_state(self):
         """Returns the current state of the game: 'UNFINISHED', 'WHITE_WON', 'BLACK_WON' OR 'TIE'."""
