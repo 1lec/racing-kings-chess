@@ -2,10 +2,11 @@ class ChessPiece:
     """Represents a chess piece, and serves as a parent class for Bishop, Knight, Rook and King, all of which are used
     to initialize the RacingKings class. Each ChessPiece object has a color, square and set of controlled squares."""
 
-    def __init__(self, color, square, controlled_squares):
+    def __init__(self, color, square, controlled_squares, theme):
         self._color = color    # can be either 'WHITE' or 'BLACK'
         self._square = square
         self._controlled_squares = controlled_squares
+        self._theme = theme
 
     def __repr__(self):
         """Overrides the current representation of the ChessPiece. This method is overridden in each subclass to display
@@ -292,20 +293,20 @@ class RacingKings:
         self._turn = 'WHITE'
 
         # Initialize white's pieces.
-        a1_king = King('WHITE', 'a1', set())
-        a2_rook = Rook('WHITE', 'a2', {'a3', 'a4', 'a5', 'a6', 'a7', 'a8'})
-        b1_bishop = Bishop('WHITE', 'b1', set())
-        b2_bishop = Bishop('WHITE', 'b2', {'a3', 'c3', 'd4', 'e5', 'f6', 'g7', 'h8'})
-        c1_knight = Knight('WHITE', 'c1', {'b3', 'd3', 'e2'})
-        c2_knight = Knight('WHITE', 'c2', {'a3', 'b4', 'd4', 'e3', 'e1'})
+        a1_king = King('WHITE', 'a1', set(), self._theme)
+        a2_rook = Rook('WHITE', 'a2', {'a3', 'a4', 'a5', 'a6', 'a7', 'a8'}, self._theme)
+        b1_bishop = Bishop('WHITE', 'b1', set(), self._theme)
+        b2_bishop = Bishop('WHITE', 'b2', {'a3', 'c3', 'd4', 'e5', 'f6', 'g7', 'h8'}, self._theme)
+        c1_knight = Knight('WHITE', 'c1', {'b3', 'd3', 'e2'}, self._theme)
+        c2_knight = Knight('WHITE', 'c2', {'a3', 'b4', 'd4', 'e3', 'e1'}, self._theme)
 
         # Initialize black's pieces.
-        h1_king = King('BLACK', 'h1', set())
-        h2_rook = Rook('BLACK', 'h2', {'h3', 'h4', 'h5', 'h6', 'h7', 'h8'})
-        g1_bishop = Bishop('BLACK', 'g1', set())
-        g2_bishop = Bishop('BLACK', 'g2', {'h3', 'f3', 'e4', 'd5', 'c6', 'b7', 'a8'})
-        f1_knight = Knight('BLACK', 'f1', {'g3', 'e3', 'd2'})
-        f2_knight = Knight('BLACK', 'f2', {'h3', 'g4', 'e4', 'd3', 'd1'})
+        h1_king = King('BLACK', 'h1', set(), self._theme)
+        h2_rook = Rook('BLACK', 'h2', {'h3', 'h4', 'h5', 'h6', 'h7', 'h8'}, self._theme)
+        g1_bishop = Bishop('BLACK', 'g1', set(), self._theme)
+        g2_bishop = Bishop('BLACK', 'g2', {'h3', 'f3', 'e4', 'd5', 'c6', 'b7', 'a8'}, self._theme)
+        f1_knight = Knight('BLACK', 'f1', {'g3', 'e3', 'd2'}, self._theme)
+        f2_knight = Knight('BLACK', 'f2', {'h3', 'g4', 'e4', 'd3', 'd1'}, self._theme)
 
         self._board = {
             'a8': None, 'b8': None, 'c8': None, 'd8': None, 'e8': None, 'f8': None, 'g8': None, 'h8': None,
