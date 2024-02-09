@@ -14,13 +14,15 @@ correct folder, type `python3 racing_kings.py`.
 ## How To Play
 Racing Kings is simple to play. Follow these steps:
 1. Launch the game by running `python3 racing_kings.py` in your terminal.
-2. The [starting position](starting_position.png) will be printed in your terminal, and you will be prompted for white's
+2. The game will prompt you for your terminal theme (either dark or light). This will ensure the unicode pieces are
+colored correctly.
+3. The [starting position](starting_position.png) will be printed in your terminal, and you will be prompted for white's
 first move.
 *Note: If the Unicode pieces are not displaying, you may need to change your terminal font. Alternatively, you can run
 the program with an IDE or your choice.*
-3. To make a move, first enter the start square of the piece you'd like to move. For example, `a2`.
-4. Next, enter the end square to complete your move. For example, `a3`. Your do not need to specify which piece to move.
-5. Once the game is over, you will be asked if you'd like to play again.
+4. To make a move, first enter the start square of the piece you'd like to move. For example, `a2`.
+5. Next, enter the end square to complete your move. For example, `a3`. Your do not need to specify which piece to move.
+6. Once the game is over, you will be asked if you'd like to play again.
 
 ## Future Improvements
 1. Supporting standard algebraic notation. Instead of entering the start and end squares of a move, make the move in a
