@@ -60,7 +60,7 @@ class Bishop(ChessPiece):
 
     def __repr__(self):
         """Overrides the representation of Bishop to the Unicode characters for bishops."""
-        if self._color == "WHITE":
+        if (self._color == "WHITE" and self._theme == 'light') or (self._color == "BLACK" and self._theme == 'dark'):
             return '\u2657'
         else:
             return '\u265D'
@@ -149,7 +149,7 @@ class Knight(ChessPiece):
 
     def __repr__(self):
         """Overrides the representation of Knight to the Unicode characters for knights."""
-        if self._color == "WHITE":
+        if (self._color == "WHITE" and self._theme == 'light') or (self._color == "BLACK" and self._theme == 'dark'):
             return '\u2658'
         else:
             return '\u265E'
@@ -185,7 +185,7 @@ class Rook(ChessPiece):
 
     def __repr__(self):
         """Overrides the representation of Rook to the Unicode characters for rooks."""
-        if self._color == "WHITE":
+        if (self._color == "WHITE" and self._theme == 'light') or (self._color == "BLACK" and self._theme == 'dark'):
             return '\u2656'
         else:
             return '\u265C'
@@ -251,7 +251,7 @@ class King(ChessPiece):
 
     def __repr__(self):
         """Overrides the representation of King to the Unicode characters for kings."""
-        if self._color == "WHITE":
+        if (self._color == "WHITE" and self._theme == 'light') or (self._color == "BLACK" and self._theme == 'dark'):
             return '\u2654'
         else:
             return '\u265A'
@@ -335,7 +335,7 @@ class RacingKings:
 
         theme = ''
         while theme.lower() != 'dark' and theme.lower() != 'light':
-            theme = input('Select your terminal theme: (dark/light)')
+            theme = input('Select your terminal theme (dark/light): ')
 
         return theme
 
@@ -515,6 +515,7 @@ class RacingKings:
 
 
 def main():
+    print("Welcome to Racing Kings!\n")
     game = RacingKings()
     while game.get_game_state() == 'UNFINISHED':
         if game.get_turn() == 'WHITE':
