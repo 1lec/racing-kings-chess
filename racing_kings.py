@@ -282,10 +282,10 @@ class King(ChessPiece):
 
 class RacingKings:
     """Represents a chess variant in which the first king to reach the 8th rank wins the game, unless black reaches the
-    8th immediately following white. RacingKings has 6 private data members: game_state, turn, board, remaining_pieces,
-    white_king_position and black_king_position. The objects in board and remaining_pieces are created using the
-    subclasses of ChessPiece. Upon initialization and after each move, a representation of the current board position
-    is printed."""
+    8th immediately following white. RacingKings has 7 private data members: theme, game_state, turn, board,
+    remaining_pieces, white_king_position and black_king_position. The objects in board and remaining_pieces are created
+    using the subclasses of ChessPiece. Upon initialization and after each move, a representation of the current board
+    position is printed."""
 
     def __init__(self):
         self._theme = self.select_theme()
