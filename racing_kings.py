@@ -458,7 +458,7 @@ class RacingKings:
                 else:
                     print(square, end=" ")
             print('\n')
-        print('  a  b c  d e  f g  h')  # Prints the file names at the bottom of the board.
+        print('  a b c d e f g h')  # Prints the file names at the bottom of the board.
 
     def make_move(self, start_square, end_square):
         """Takes as arguments the starting and ending squares of a move, and, assuming the move is legal, makes the
