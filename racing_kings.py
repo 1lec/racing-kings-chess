@@ -315,7 +315,6 @@ class RacingKings:
                                   g1_bishop, g2_bishop, h1_king, h2_rook]
         self._white_king_position = 'a1'
         self._black_king_position = 'h1'
-        self.print_board()  # Print the starting position.
 
     def select_theme(self):
         """Prompts the user for the theme of their terminal, dark or light, to ensure pieces display with the correct
@@ -480,6 +479,8 @@ class RacingKings:
         
     def run(self):
         """Starts the Racing Kings game."""
+        print("Welcome to Racing Kings!\n")
+        self.print_board()
         while self._game_state == 'UNFINISHED':
             print('\nWhite to move.') if self._turn == 'WHITE' else print('\nBlack to move.')
             legal = self.make_move(input('Enter start square of move: '), input('Enter end square of move: '))
@@ -490,7 +491,6 @@ class RacingKings:
 
 
 def main():
-    print("Welcome to Racing Kings!\n")
     game = RacingKings()
     game.run()
 
