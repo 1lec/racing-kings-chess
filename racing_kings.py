@@ -485,34 +485,37 @@ class RacingKings:
             self.update_game_state()
             self.print_board()
             return True
-
-
-def main():
-    print("Welcome to Racing Kings!\n")
-    game = RacingKings()
-    while game.get_game_state() == 'UNFINISHED':
-        if game.get_turn() == 'WHITE':
-            print('\nWhite to move.')
-        else:
-            print('\nBlack to move.')
-        legal = game.make_move(input('Enter start square of move: '), input('Enter end square of move: '))
-        if not legal:
-            print('\nIllegal move! Please make a different move.')
-    print(game.get_game_state())
-
-    def _new_game():
+        
+    def _new_game(self):
         """After the conclusion of a game, prompts the user if they'd like to play another."""
-        new_game = ''
+        new_game = input('Would you like to play another game? (y/n) ')
 
-        while new_game.lower() != 'y' and new_game.lower() != 'n':
+        while new_game.lower not in ['y', 'n']:
             new_game = input('Would you like to play another game? (y/n) ')
 
         if new_game.lower() == 'y':
             main()
         else:
             print('Thanks for playing!')
+        
+    def run(self):
+        """Starts the Racing Kings."""
+        while self._game_state == 'UNFINISHED':
+            if self._turn == 'WHITE':
+                print('\nWhite to move.')
+            else:
+                print('\nBlack to move.')
+            legal = self.make_move(input('Enter start square of move: '), input('Enter end square of move: '))
+            if not legal:
+                print('\nIllegal move! Please make a different move.')
+        print(self._game_state)
+        self._new_game()
 
-    _new_game()
+
+def main():
+    print("Welcome to Racing Kings!\n")
+    game = RacingKings()
+    game.run()
 
 
 if __name__ == "__main__":
