@@ -326,26 +326,6 @@ class RacingKings:
 
         return theme
 
-    def get_game_state(self):
-        """Returns the current state of the game: 'UNFINISHED', 'WHITE_WON', 'BLACK_WON' OR 'TIE'."""
-        return self._game_state
-
-    def get_board(self):
-        """Returns the dictionary of squares of the chessboard."""
-        return self._board
-
-    def get_turn(self):
-        """Returns the player to move: 'WHITE' or 'BLACK'."""
-        return self._turn
-
-    def set_game_state(self, game_state):
-        """Takes as an argument a game state and updates the state of the current game to it."""
-        self._game_state = game_state
-
-    def set_turn(self, color):
-        """Takes as an argument a color and sets that color to move."""
-        self._turn = color
-
     def set_white_king_position(self, new_square):
         """Takes as an argument a new_square for the white king and sets it as the king's current position."""
         self._white_king_position = new_square
@@ -380,23 +360,23 @@ class RacingKings:
     def change_turn(self):
         """Switches the player to move by providing an argument for set_turn."""
         if self._turn == 'WHITE':
-            self.set_turn('BLACK')
+            self._turn = ('BLACK')
         else:
-            self.set_turn('WHITE')
+            self._turn = ('WHITE')
 
     def update_game_state(self):
         """Checks the current position of the kings and the turn to determine if the game is over."""
         # If both kings are on the 8th rank, the game is a tie.
         if self._white_king_position[1] == '8' and self._black_king_position[1] == '8':
-            self.set_game_state('TIE')
+            self._game_state = ('TIE')
         # If black's king is on the 8th rank but white's is not, black has won the game.
         elif self._black_king_position[1] == '8' and not self._white_king_position[1] == '8':
-            self.set_game_state('BLACK_WON')
+            self._game_state = ('BLACK_WON')
         # If white's king is on the 8th rank and white is to move again, white has won the game.
         elif self._white_king_position[1] == '8' and self._turn == 'WHITE':
-            self.set_game_state('WHITE_WON')
+            self._game_state = ('WHITE_WON')
         else:
-            self.set_game_state('UNFINISHED')
+            self._game_state = ('UNFINISHED')
 
     def print_board(self):
         """Prints the current position of the game."""
@@ -488,23 +468,20 @@ class RacingKings:
         
     def _new_game(self):
         """After the conclusion of a game, prompts the user if they'd like to play another."""
-        new_game = input('Would you like to play another game? (y/n) ')
+        new_game = input('Would you like to play another game? (y/n) ').lower()
 
-        while new_game.lower not in ['y', 'n']:
+        while new_game not in ['y', 'n']:
             new_game = input('Would you like to play another game? (y/n) ')
 
-        if new_game.lower() == 'y':
+        if new_game == 'y':
             main()
         else:
             print('Thanks for playing!')
         
     def run(self):
-        """Starts the Racing Kings."""
+        """Starts the Racing Kings game."""
         while self._game_state == 'UNFINISHED':
-            if self._turn == 'WHITE':
-                print('\nWhite to move.')
-            else:
-                print('\nBlack to move.')
+            print('\nWhite to move.') if self._turn == 'WHITE' else print('\nBlack to move.')
             legal = self.make_move(input('Enter start square of move: '), input('Enter end square of move: '))
             if not legal:
                 print('\nIllegal move! Please make a different move.')
