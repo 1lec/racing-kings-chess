@@ -14,22 +14,18 @@ class ChessPiece:
 
     def get_color(self):
         """Returns the color of a chess piece."""
-
         return self._color
 
     def get_controlled_squares(self):
         """Returns all squares currently controlled by the chess piece."""
-
         return self._controlled_squares
 
     def get_square(self):
         """Returns the current square of a piece."""
-
         return self._square
 
     def set_square(self, new_square):
         """Takes as an argument a square and sets it as the current square for a piece."""
-
         self._square = new_square
 
     def set_controlled_squares(self, board):
@@ -39,18 +35,14 @@ class ChessPiece:
     def algebraic_to_tup(self, algebraic_square):
         """Takes as an argument a square in algebraic notation and returns a tuple of two integers: the ASCII value
         of the file and the rank number."""
-
         file = ord(algebraic_square[0]) - 96  # ord() converts a letter into an integer per the ASCII table
         rank = int(algebraic_square[1])
-
         return (file, rank)
 
     def tup_to_algebraic(self, square_tup):
         """Takes as an argument a tuple representing a square on a chess board and returns the corresponding algebraic
         notation."""
-
         file, rank = square_tup
-
         return chr(file + 96) + str(rank)
 
 
@@ -68,7 +60,6 @@ class Bishop(ChessPiece):
     def set_controlled_squares(self, board):
         """Takes as an argument the current layout of the board and determines the set of controlled squares by a
         bishop."""
-
         self._controlled_squares.clear()
 
         # Extract integer values of column and rank from the algebraic notation.
@@ -157,7 +148,6 @@ class Knight(ChessPiece):
     def set_controlled_squares(self, board):
         """Takes as an argument the current layout of the board and determines the set of controlled squares by a
         knight."""
-
         self._controlled_squares.clear()
 
         # Extract integer values of column and rank from the algebraic notation.
@@ -193,7 +183,6 @@ class Rook(ChessPiece):
     def set_controlled_squares(self, board):
         """Takes as an argument the current layout of the board and determines the set of controlled squares by a rook.
         """
-
         self._controlled_squares.clear()
 
         # Extract integer values of column and rank from the algebraic notation.
@@ -259,7 +248,6 @@ class King(ChessPiece):
     def set_controlled_squares(self, board):
         """Takes as an argument the current layout of the board and determines the set of controlled squares by a king.
         """
-
         self._controlled_squares.clear()
 
         # Extract integer values of column and rank from the algebraic notation.
@@ -332,7 +320,6 @@ class RacingKings:
     def select_theme(self):
         """Prompts the user for the theme of their terminal, dark or light, to ensure pieces display with the correct
         colors."""
-
         theme = ''
         while theme.lower() != 'dark' and theme.lower() != 'light':
             theme = input('Select your terminal theme (dark/light): ')
@@ -341,43 +328,35 @@ class RacingKings:
 
     def get_game_state(self):
         """Returns the current state of the game: 'UNFINISHED', 'WHITE_WON', 'BLACK_WON' OR 'TIE'."""
-
         return self._game_state
 
     def get_board(self):
         """Returns the dictionary of squares of the chessboard."""
-
         return self._board
 
     def get_turn(self):
         """Returns the player to move: 'WHITE' or 'BLACK'."""
-
         return self._turn
 
     def set_game_state(self, game_state):
         """Takes as an argument a game state and updates the state of the current game to it."""
-
         self._game_state = game_state
 
     def set_turn(self, color):
         """Takes as an argument a color and sets that color to move."""
-
         self._turn = color
 
     def set_white_king_position(self, new_square):
         """Takes as an argument a new_square for the white king and sets it as the king's current position."""
-
         self._white_king_position = new_square
 
     def set_black_king_position(self, new_square):
         """Takes as an argument a new_square for the black king and sets it as the king's current position."""
-
         self._black_king_position = new_square
 
     def update_king_position(self, piece, new_square):
         """Takes as an argument a piece and square and, if the piece is of the King class, updates the corresponding
         king_position data member."""
-
         if isinstance(piece, King):
             if piece.get_color() == "WHITE":
                 self.set_white_king_position(new_square)
@@ -386,13 +365,11 @@ class RacingKings:
 
     def update_controlled_squares(self):
         """Updates the controlled squares for all remaining pieces on the board."""
-
         for piece in self._remaining_pieces:
             piece.set_controlled_squares(self._board)
 
     def is_not_check(self):
         """Returns False if either king is within the controlled squares of a piece, but returns True otherwise."""
-
         for piece in self._remaining_pieces:
             controlled_squares = piece.get_controlled_squares()
             if self._white_king_position in controlled_squares or self._black_king_position in controlled_squares:
@@ -402,7 +379,6 @@ class RacingKings:
 
     def change_turn(self):
         """Switches the player to move by providing an argument for set_turn."""
-
         if self._turn == 'WHITE':
             self.set_turn('BLACK')
         else:
@@ -410,7 +386,6 @@ class RacingKings:
 
     def update_game_state(self):
         """Checks the current position of the kings and the turn to determine if the game is over."""
-
         # If both kings are on the 8th rank, the game is a tie.
         if self._white_king_position[1] == '8' and self._black_king_position[1] == '8':
             self.set_game_state('TIE')
@@ -425,7 +400,6 @@ class RacingKings:
 
     def print_board(self):
         """Prints the current position of the game."""
-
         list_of_ranks = []
         single_rank = []
         square_count = 0
@@ -463,7 +437,6 @@ class RacingKings:
     def make_move(self, start_square, end_square):
         """Takes as arguments the starting and ending squares of a move, and, assuming the move is legal, makes the
         indicated move and returns True. If the move is illegal or the game has already concluded, return False."""
-
         # If the starting or ending squares do not exist, return False.
         if start_square not in self._board or end_square not in self._board:
             return False
