@@ -65,73 +65,25 @@ class Bishop(ChessPiece):
         # Extract integer values of column and rank from the algebraic notation.
         square_tup = self.algebraic_to_tup(self._square)
 
-        # Check squares northeast of the bishop.
-        file, rank = square_tup
-        clear_path = True
-        while clear_path:
-            square = self.tup_to_algebraic((file + 1, rank + 1))
-            if square not in board:
-                clear_path = False
-            elif board[square] is None:
-                self._controlled_squares.add(square)
-                file += 1
-                rank += 1
-            elif board[square].get_color() != self._color:
-                self._controlled_squares.add(square)
-                clear_path = False
-            else:
-                clear_path = False
+        diagonals = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
 
-        # Check squares southeast of the bishop.
-        file, rank = square_tup
-        clear_path = True
-        while clear_path:
-            square = self.tup_to_algebraic((file + 1, rank - 1))
-            if square not in board:
-                clear_path = False
-            elif board[square] is None:
-                self._controlled_squares.add(square)
-                file += 1
-                rank -= 1
-            elif board[square].get_color() != self._color:
-                self._controlled_squares.add(square)
-                clear_path = False
-            else:
-                clear_path = False
-
-        # Check squares southwest of the bishop.
-        file, rank = square_tup
-        clear_path = True
-        while clear_path:
-            square = self.tup_to_algebraic((file - 1, rank - 1))
-            if square not in board:
-                clear_path = False
-            elif board[square] is None:
-                self._controlled_squares.add(square)
-                file -= 1
-                rank -= 1
-            elif board[square].get_color() != self._color:
-                self._controlled_squares.add(square)
-                clear_path = False
-            else:
-                clear_path = False
-
-        # Check squares northwest of the bishop.
-        file, rank = square_tup
-        clear_path = True
-        while clear_path:
-            square = self.tup_to_algebraic((file - 1, rank + 1))
-            if square not in board:
-                clear_path = False
-            elif board[square] is None:
-                self._controlled_squares.add(square)
-                file -= 1
-                rank += 1
-            elif board[square].get_color() != self._color:
-                self._controlled_squares.add(square)
-                clear_path = False
-            else:
-                clear_path = False
+        for diagonal in diagonals:
+            file, rank = square_tup
+            delta_file, delta_rank = diagonal
+            clear_path = True
+            while clear_path:
+                square = self.tup_to_algebraic((file + delta_file, rank + delta_rank))
+                if square not in board:
+                    clear_path = False
+                elif board[square] is None:
+                    self._controlled_squares.add(square)
+                    file += delta_file
+                    rank += delta_rank
+                elif board[square].get_color() != self._color:
+                    self._controlled_squares.add(square)
+                    clear_path = False
+                else:
+                    clear_path = False
 
 
 class Knight(ChessPiece):
