@@ -15,17 +15,9 @@ class ChessPiece:
         """Returns all squares currently controlled by the chess piece."""
         return self._controlled_squares
 
-    def get_square(self):
-        """Returns the current square of a piece."""
-        return self._square
-
     def set_square(self, new_square):
         """Takes as an argument a square and sets it as the current square for a piece."""
         self._square = new_square
-
-    def set_controlled_squares(self, board):
-        """Takes as an argument the current layout of the board and determines the set of controlled squares for a chess
-        piece. Method is overridden for each class based on the conventional movements of each piece."""
 
     def algebraic_to_tup(self, algebraic_square):
         """Takes as an argument a square in algebraic notation and returns a tuple of two integers: the ASCII value
@@ -145,11 +137,7 @@ class King(ChessPiece):
 
 
 class RacingKings:
-    """Represents a chess variant in which the first king to reach the 8th rank wins the game, unless black reaches the
-    8th immediately following white. RacingKings has 7 private data members: theme, game_state, turn, board,
-    remaining_pieces, white_king_position and black_king_position. The objects in board and remaining_pieces are created
-    using the subclasses of ChessPiece. Upon initialization and after each move, a representation of the current board
-    position is printed."""
+    """Represents a game of Racing Kings, a variant of chess."""
 
     def __init__(self):
         self._theme = self.select_theme()
@@ -290,7 +278,7 @@ class RacingKings:
 
     def _get_unicode(self, piece):
         """Receives a piece and returns the unicode representation based on piece color and terminal theme."""            
-        matched = (piece._color == "WHITE" and self._theme == 'light') or (piece._color == "BLACK" and self._theme == 'dark')
+        matched = (piece.get_color() == "WHITE" and self._theme == 'light') or (piece.get_color() == "BLACK" and self._theme == 'dark')
         if isinstance(piece, Bishop):
             unicode = '\u2657' if matched else '\u265D'
         if isinstance(piece, Knight):
