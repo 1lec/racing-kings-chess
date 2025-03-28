@@ -141,49 +141,25 @@ class Rook(ChessPiece):
         square_tup = self.algebraic_to_tup(self._square)
         file, rank = square_tup
 
-        # Check squares to the right of the rook.
-        for file_num in range(file + 1, 9):
-            square = self.tup_to_algebraic((file_num, rank))
-            if board[square] is None:
-                self._controlled_squares.add(square)
-            elif board[square].get_color() != self._color:
-                self._controlled_squares.add(square)
-                break
-            else:
-                break
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
-        # Check squares to the left of the rook.
-        for file_num in range(file - 1, 0, -1):
-            square = self.tup_to_algebraic((file_num, rank))
-            if board[square] is None:
-                self._controlled_squares.add(square)
-            elif board[square].get_color() != self._color:
-                self._controlled_squares.add(square)
-                break
-            else:
-                break
-
-        # Check squares above the rook.
-        for rank_num in range(rank + 1, 9):
-            square = self.tup_to_algebraic((file, rank_num))
-            if board[square] is None:
-                self._controlled_squares.add(square)
-            elif board[square].get_color() != self._color:
-                self._controlled_squares.add(square)
-                break
-            else:
-                break
-
-        # Check squares below the rook.
-        for rank_num in range(rank - 1, 0, -1):
-            square = self.tup_to_algebraic((file, rank_num))
-            if board[square] is None:
-                self._controlled_squares.add(square)
-            elif board[square].get_color() != self._color:
-                self._controlled_squares.add(square)
-                break
-            else:
-                break
+        for direction in directions:
+            file, rank = square_tup
+            delta_file, delta_rank = direction
+            clear_path = True
+            while clear_path:
+                square = self.tup_to_algebraic((file + delta_file, rank + delta_rank))
+                if square not in board:
+                    clear_path = False
+                elif board[square] is None:
+                    self._controlled_squares.add(square)
+                    file += delta_file
+                    rank += delta_rank
+                elif board[square].get_color() != self._color:
+                    self._controlled_squares.add(square)
+                    clear_path = False
+                else:
+                    clear_path = False
 
 
 class King(ChessPiece):
