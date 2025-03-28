@@ -44,7 +44,27 @@ class ChessPiece:
         notation."""
         file, rank = square_tup
         return chr(file + 96) + str(rank)
-
+    
+    def _check_direction(self, square_tup, direction, board):
+        """Receives a tuple representing the current square of a long-range piece, a direction the piece can travel,
+        and the current state of the board. Adds squares to the set of controlled squares until a friendly piece or
+        edge of board is reached."""
+        file, rank = square_tup
+        delta_file, delta_rank = direction
+        clear_path = True
+        while clear_path:
+            square = self.tup_to_algebraic((file + delta_file, rank + delta_rank))
+            if square not in board:
+                clear_path = False
+            elif board[square] is None:
+                self._controlled_squares.add(square)
+                file += delta_file
+                rank += delta_rank
+            elif board[square].get_color() != self._color:
+                self._controlled_squares.add(square)
+                clear_path = False
+            else:
+                clear_path = False
 
 class Bishop(ChessPiece):
     """Represents a bishop in a game of chess and used to create all Bishop objects when initializing RacingKings.
@@ -61,29 +81,10 @@ class Bishop(ChessPiece):
         """Takes as an argument the current layout of the board and determines the set of controlled squares by a
         bishop."""
         self._controlled_squares.clear()
-
-        # Extract integer values of column and rank from the algebraic notation.
         square_tup = self.algebraic_to_tup(self._square)
-
-        diagonals = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
-
-        for diagonal in diagonals:
-            file, rank = square_tup
-            delta_file, delta_rank = diagonal
-            clear_path = True
-            while clear_path:
-                square = self.tup_to_algebraic((file + delta_file, rank + delta_rank))
-                if square not in board:
-                    clear_path = False
-                elif board[square] is None:
-                    self._controlled_squares.add(square)
-                    file += delta_file
-                    rank += delta_rank
-                elif board[square].get_color() != self._color:
-                    self._controlled_squares.add(square)
-                    clear_path = False
-                else:
-                    clear_path = False
+        directions = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
+        for direction in directions:
+            self._check_direction(square_tup, direction, board)
 
 
 class Knight(ChessPiece):
@@ -136,30 +137,10 @@ class Rook(ChessPiece):
         """Takes as an argument the current layout of the board and determines the set of controlled squares by a rook.
         """
         self._controlled_squares.clear()
-
-        # Extract integer values of column and rank from the algebraic notation.
         square_tup = self.algebraic_to_tup(self._square)
-        file, rank = square_tup
-
         directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-
         for direction in directions:
-            file, rank = square_tup
-            delta_file, delta_rank = direction
-            clear_path = True
-            while clear_path:
-                square = self.tup_to_algebraic((file + delta_file, rank + delta_rank))
-                if square not in board:
-                    clear_path = False
-                elif board[square] is None:
-                    self._controlled_squares.add(square)
-                    file += delta_file
-                    rank += delta_rank
-                elif board[square].get_color() != self._color:
-                    self._controlled_squares.add(square)
-                    clear_path = False
-                else:
-                    clear_path = False
+            self._check_direction(square_tup, direction, board)
 
 
 class King(ChessPiece):
