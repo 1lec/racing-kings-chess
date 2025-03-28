@@ -256,14 +256,13 @@ class RacingKings:
         for piece in self._remaining_pieces:
             piece.set_controlled_squares(self._board)
 
-    def is_not_check(self):
-        """Returns False if either king is within the controlled squares of a piece, but returns True otherwise."""
+    def is_check(self):
+        """Returns True if either king is within the controlled squares of a piece, but returns False otherwise."""
         for piece in self._remaining_pieces:
             controlled_squares = piece.get_controlled_squares()
             if self._white_king_position in controlled_squares or self._black_king_position in controlled_squares:
-                return False
-
-        return True
+                return True
+        return False
 
     def change_turn(self):
         """Switches the player to move by providing an argument for set_turn."""
@@ -355,7 +354,7 @@ class RacingKings:
 
         # If the move puts either of the kings in check, put the piece back on start_square, return any captured piece,
         # re-update the controlled squares for all pieces, update king positions as needed, and return False.
-        if not self.is_not_check():
+        if self.is_check():
             piece_to_return = self._board[end_square]
             self._board[end_square] = end_square_contents
             if end_square_contents is not None:
@@ -368,11 +367,10 @@ class RacingKings:
 
         # If the move does not place either king in check, switch the side to move, make necessary updates to the game
         # state, print the current position, and return True.
-        else:
-            self.change_turn()
-            self.update_game_state()
-            self.print_board()
-            return True
+        self.change_turn()
+        self.update_game_state()
+        self.print_board()
+        return True
         
     def _new_game(self):
         """After the conclusion of a game, prompts the user if they'd like to play another."""
