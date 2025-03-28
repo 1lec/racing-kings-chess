@@ -228,9 +228,9 @@ class RacingKings:
     def select_theme(self):
         """Prompts the user for the theme of their terminal, dark or light, to ensure pieces display with the correct
         colors."""
-        theme = ''
-        while theme.lower() != 'dark' and theme.lower() != 'light':
-            theme = input('Select your terminal theme (dark/light): ')
+        theme = input('Select your terminal theme (dark/light): ').lower()
+        while theme not in ['dark', 'light']:
+            theme = input('Select your terminal theme (dark/light): ').lower()
 
         return theme
 
@@ -317,9 +317,22 @@ class RacingKings:
                 if square is None:
                     print('\u2610', end=" ")
                 else:
-                    print(square, end=" ")
+                    print(self._get_unicode(square), end=" ")
             print('\n')
         print('  a b c d e f g h')  # Prints the file names at the bottom of the board.
+
+    def _get_unicode(self, piece):
+        """Receives a piece and returns the unicode representation based on piece color and terminal theme."""            
+        matched = (piece._color == "WHITE" and self._theme == 'light') or (piece._color == "BLACK" and self._theme == 'dark')
+        if isinstance(piece, Bishop):
+            unicode = '\u2657' if matched else '\u265D'
+        if isinstance(piece, Knight):
+            unicode = '\u2658' if matched else '\u265E'
+        if isinstance(piece, Rook):
+            unicode = '\u2656' if matched else '\u265C'
+        if isinstance(piece, King):
+            unicode = '\u2654' if matched else '\u265A'
+        return unicode
 
     def make_move(self, start_square, end_square):
         """Takes as arguments the starting and ending squares of a move, and, assuming the move is legal, makes the
