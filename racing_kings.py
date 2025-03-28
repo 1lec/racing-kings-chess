@@ -2,15 +2,10 @@ class ChessPiece:
     """Represents a chess piece, and serves as a parent class for Bishop, Knight, Rook and King, all of which are used
     to initialize the RacingKings class. Each ChessPiece object has a color, square and set of controlled squares."""
 
-    def __init__(self, color, square, controlled_squares, theme):
+    def __init__(self, color, square, controlled_squares):
         self._color = color    # can be either 'WHITE' or 'BLACK'
         self._square = square
         self._controlled_squares = controlled_squares
-        self._theme = theme
-
-    def __repr__(self):
-        """Overrides the current representation of the ChessPiece. This method is overridden in each subclass to display
-        the corresponding chess piece."""
 
     def get_color(self):
         """Returns the color of a chess piece."""
@@ -70,13 +65,6 @@ class Bishop(ChessPiece):
     """Represents a bishop in a game of chess and used to create all Bishop objects when initializing RacingKings.
     Inherits from ChessPiece."""
 
-    def __repr__(self):
-        """Overrides the representation of Bishop to the Unicode characters for bishops."""
-        if (self._color == "WHITE" and self._theme == 'light') or (self._color == "BLACK" and self._theme == 'dark'):
-            return '\u2657'
-        else:
-            return '\u265D'
-
     def set_controlled_squares(self, board):
         """Takes as an argument the current layout of the board and determines the set of controlled squares by a
         bishop."""
@@ -90,13 +78,6 @@ class Bishop(ChessPiece):
 class Knight(ChessPiece):
     """Represents a knight in a game of chess and used to create all Knight objects when initializing RacingKings.
     Inherits from ChessPiece."""
-
-    def __repr__(self):
-        """Overrides the representation of Knight to the Unicode characters for knights."""
-        if (self._color == "WHITE" and self._theme == 'light') or (self._color == "BLACK" and self._theme == 'dark'):
-            return '\u2658'
-        else:
-            return '\u265E'
 
     def set_controlled_squares(self, board):
         """Takes as an argument the current layout of the board and determines the set of controlled squares by a
@@ -126,13 +107,6 @@ class Rook(ChessPiece):
     """Represents a rook in a game of chess and used to create all Rook objects when initializing RacingKings. Inherits
      from ChessPiece."""
 
-    def __repr__(self):
-        """Overrides the representation of Rook to the Unicode characters for rooks."""
-        if (self._color == "WHITE" and self._theme == 'light') or (self._color == "BLACK" and self._theme == 'dark'):
-            return '\u2656'
-        else:
-            return '\u265C'
-
     def set_controlled_squares(self, board):
         """Takes as an argument the current layout of the board and determines the set of controlled squares by a rook.
         """
@@ -146,13 +120,6 @@ class Rook(ChessPiece):
 class King(ChessPiece):
     """Represents a king in a game of chess and used to create all King objects when initializing RacingKings. Inherits
      from ChessPiece."""
-
-    def __repr__(self):
-        """Overrides the representation of King to the Unicode characters for kings."""
-        if (self._color == "WHITE" and self._theme == 'light') or (self._color == "BLACK" and self._theme == 'dark'):
-            return '\u2654'
-        else:
-            return '\u265A'
 
     def set_controlled_squares(self, board):
         """Takes as an argument the current layout of the board and determines the set of controlled squares by a king.
@@ -190,20 +157,20 @@ class RacingKings:
         self._turn = 'WHITE'
 
         # Initialize white's pieces.
-        a1_king = King('WHITE', 'a1', set(), self._theme)
-        a2_rook = Rook('WHITE', 'a2', {'a3', 'a4', 'a5', 'a6', 'a7', 'a8'}, self._theme)
-        b1_bishop = Bishop('WHITE', 'b1', set(), self._theme)
-        b2_bishop = Bishop('WHITE', 'b2', {'a3', 'c3', 'd4', 'e5', 'f6', 'g7', 'h8'}, self._theme)
-        c1_knight = Knight('WHITE', 'c1', {'b3', 'd3', 'e2'}, self._theme)
-        c2_knight = Knight('WHITE', 'c2', {'a3', 'b4', 'd4', 'e3', 'e1'}, self._theme)
+        a1_king = King('WHITE', 'a1', set())
+        a2_rook = Rook('WHITE', 'a2', {'a3', 'a4', 'a5', 'a6', 'a7', 'a8'})
+        b1_bishop = Bishop('WHITE', 'b1', set())
+        b2_bishop = Bishop('WHITE', 'b2', {'a3', 'c3', 'd4', 'e5', 'f6', 'g7', 'h8'})
+        c1_knight = Knight('WHITE', 'c1', {'b3', 'd3', 'e2'})
+        c2_knight = Knight('WHITE', 'c2', {'a3', 'b4', 'd4', 'e3', 'e1'})
 
         # Initialize black's pieces.
-        h1_king = King('BLACK', 'h1', set(), self._theme)
-        h2_rook = Rook('BLACK', 'h2', {'h3', 'h4', 'h5', 'h6', 'h7', 'h8'}, self._theme)
-        g1_bishop = Bishop('BLACK', 'g1', set(), self._theme)
-        g2_bishop = Bishop('BLACK', 'g2', {'h3', 'f3', 'e4', 'd5', 'c6', 'b7', 'a8'}, self._theme)
-        f1_knight = Knight('BLACK', 'f1', {'g3', 'e3', 'd2'}, self._theme)
-        f2_knight = Knight('BLACK', 'f2', {'h3', 'g4', 'e4', 'd3', 'd1'}, self._theme)
+        h1_king = King('BLACK', 'h1', set())
+        h2_rook = Rook('BLACK', 'h2', {'h3', 'h4', 'h5', 'h6', 'h7', 'h8'})
+        g1_bishop = Bishop('BLACK', 'g1', set())
+        g2_bishop = Bishop('BLACK', 'g2', {'h3', 'f3', 'e4', 'd5', 'c6', 'b7', 'a8'})
+        f1_knight = Knight('BLACK', 'f1', {'g3', 'e3', 'd2'})
+        f2_knight = Knight('BLACK', 'f2', {'h3', 'g4', 'e4', 'd3', 'd1'})
 
         self._board = {
             'a8': None, 'b8': None, 'c8': None, 'd8': None, 'e8': None, 'f8': None, 'g8': None, 'h8': None,
